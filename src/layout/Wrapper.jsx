@@ -1,14 +1,14 @@
-import { red } from '@ant-design/colors';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, FacebookOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-import { Layout, Menu, Button, Tooltip } from 'antd';
 import React, { useState } from 'react';
+import { UploadOutlined, UserOutlined, VideoCameraOutlined, FacebookOutlined } from '@ant-design/icons';
+import { Layout, Menu, Button, Tooltip } from 'antd';
+import { red } from '@ant-design/colors';
+import { useNavigate } from 'react-router-dom';
 import { Home } from '../pages';
 import './Wrapper.css'
+
 const { Header, Content, Sider } = Layout;
 
-
-const Wrapper = ({ children }) => {
+const Wrapper = () => {
     const navigate = useNavigate()
     const [dark, setDark] = useState(false);
 
@@ -17,13 +17,13 @@ const Wrapper = ({ children }) => {
     }
 
     const items = [
-        { label: 'Home', key: 'item-1' },
+        { label: 'Home', key: 'home-1' },
     ];
 
+    // Logout with login value false
     const handleLogout = () => {
         navigate('/')
         localStorage.setItem('Login', false)
-
     }
 
     return (
@@ -32,11 +32,13 @@ const Wrapper = ({ children }) => {
                 theme={dark ? "dark" : "light"}
                 breakpoint="lg"
                 collapsedWidth="0">
-                <div className="logo" style={{ background: dark ? "#fff" : "#0c263f" }} />
+                <div
+                    className="logo"
+                    style={{ background: dark ? "#fff" : "#0c263f" }} />
                 <Menu
                     theme={dark ? "dark" : "light"}
                     mode="inline"
-                    defaultSelectedKeys={['4']}
+                    defaultSelectedKeys={['1']}
                     items={[UserOutlined, VideoCameraOutlined, UploadOutlined, FacebookOutlined].map(
                         (icon, index) => ({
                             key: String(index + 1),
@@ -46,30 +48,28 @@ const Wrapper = ({ children }) => {
                     )}
                 />
             </Sider>
+
             <Layout>
                 <Header
-                    className="site-layout-sub-header-background"
                     style={{
                         padding: 0,
                         background: dark ? '#001529' : '#fff'
                     }}
                 >
-                    <div style={{ margin: "auto" }}>
-                        <Tooltip placement="left" title='Click to logout from your account!'>
-                            <Button
-                                shape='round'
-                                onClick={() => handleLogout()}
-                                size='large'
-                                type='primary'
-                                style={{
-                                    float: 'right',
-                                    margin: '0.5rem',
-                                    background: dark ? red[2] : red[4]
-                                }}>
-                                Logout
-                            </Button>
-                        </Tooltip>
-                    </div>
+                    <Tooltip placement="left" title='Click to logout from your account!'>
+                        <Button
+                            shape='round'
+                            onClick={() => handleLogout()}
+                            size='large'
+                            type='primary'
+                            style={{
+                                float: 'right',
+                                margin: '0.5rem',
+                                background: dark ? red[2] : red[4]
+                            }}>
+                            Logout
+                        </Button>
+                    </Tooltip>
 
                     <Menu
                         theme={dark ? "dark" : "light"}
@@ -78,16 +78,15 @@ const Wrapper = ({ children }) => {
                         items={items}
                     />
 
-
                 </Header>
+
                 <Content style={{ background: dark ? '#0c263f' : '#fff' }}>
                     <div
-                        className="site-layout-background"
                         style={{
                             padding: 24,
                             minHeight: 360,
                         }}>
-                        <div style={{ width: '100%' }}>
+                        <div style={{ width: '100%', height: '30px' }}>
                             <Button
                                 size='large'
                                 style={{
@@ -101,6 +100,7 @@ const Wrapper = ({ children }) => {
                                 {dark ? 'Light ☀️' : 'Dark 🌑'}
                             </Button>
                         </div>
+                        {/* Pass dark props to home */}
                         <Home dark={dark} />
                     </div>
                 </Content>

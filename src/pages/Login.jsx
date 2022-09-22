@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Typography } from 'antd';
-import { Link, useNavigate } from 'react-router-dom'
-import "../App.css"
 import { Form, Button, Input, Alert } from "antd";
+import { Link, useNavigate } from 'react-router-dom'
+import { Typography } from 'antd';
+import "../App.css"
+
 const { Title } = Typography;
 
 const Login = () => {
@@ -31,8 +32,9 @@ const Login = () => {
         <Title level={3} style={{ marginBottom: '5vh' }}>Login</Title>
         {error ?
           <Alert
+            showIcon
             style={{ marginBottom: '3vh' }}
-            message={'Invalid Credential'}
+            message="Invalid Credential!"
             type="error" />
           :
           null
@@ -50,6 +52,7 @@ const Login = () => {
             console.log({ error });
           }}
         >
+
           <Form.Item
             onChange={(e) => setUsername(e.target.value)}
             name="fullName"
@@ -84,13 +87,13 @@ const Login = () => {
             <Button type="primary" htmlType="submit" shape='round' style={{ marginRight: 20 }}>
               Login
             </Button>
-
             <Link to='/register'>
               <Button shape='round'>
                 Sign Up
               </Button>
             </Link>
           </Form.Item>
+
         </Form>
       </header>
     </div>

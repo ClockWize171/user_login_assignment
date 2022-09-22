@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Form, Input, Typography, Alert } from 'antd';
 import { Link } from 'react-router-dom'
-import '../App.css'
 import { useNavigate } from 'react-router-dom'
-const { Title } = Typography;
+import '../App.css'
 
+const { Title } = Typography;
 
 const Register = () => {
   const [error, setError] = useState([])
@@ -30,7 +30,7 @@ const Register = () => {
       e.target.reset()
     }
   }
-  console.log(registerSuccess)
+  // console.log(registerSuccess)
 
   return (
     <div className="App">
@@ -38,8 +38,10 @@ const Register = () => {
         <Title level={3} style={{ marginBottom: '3vh' }}>Sign Up</Title>
         {registerSuccess ?
           <Alert
+            message="Successfully registered!"
+            showIcon
+            description="Go back to login page."
             style={{ marginBottom: '3vh' }}
-            message={'Successfully registered! Go back to login page.'}
             type="success" />
           :
           null
@@ -57,6 +59,7 @@ const Register = () => {
             setError(error);
           }}
         >
+
           <Form.Item
             name="username"
             label="Username"

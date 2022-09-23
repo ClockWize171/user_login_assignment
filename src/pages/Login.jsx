@@ -29,7 +29,7 @@ const Login = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Title level={3} style={{ marginBottom: '5vh' }}>Login</Title>
+        <Title level={3} style={{ marginBottom: '3vh' }}>Login</Title>
         {error ?
           <Alert
             showIcon
@@ -63,7 +63,6 @@ const Login = () => {
                 message: "Please enter your name",
               }
             ]}
-            hasFeedback
           >
             <Input placeholder="Type your name" />
           </Form.Item>
@@ -78,13 +77,12 @@ const Login = () => {
                 message: "Please enter your password",
               },
             ]}
-            hasFeedback
           >
             <Input.Password placeholder="Type your password" />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }} >
-            <Button type="primary" htmlType="submit" shape='round' style={{ marginRight: 20 }}>
+          <Form.Item labelCol={{ span: 10 }} wrapperCol={{ span: 40 }} style={{paddingLeft: 20}} >
+            <Button type="primary" htmlType="submit" shape='round' style={{ marginRight: 30 }}>
               Login
             </Button>
             <Link to='/register'>

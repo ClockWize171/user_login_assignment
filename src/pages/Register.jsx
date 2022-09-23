@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Typography, Alert } from 'antd';
+import { Button, Form, Input, Typography, notification, Space } from 'antd';
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
@@ -8,7 +8,6 @@ const { Title } = Typography;
 
 const Register = () => {
   const [error, setError] = useState([])
-  const [registerSuccess, setRegisterSuccess] = useState(false)
   const [loginSuccess, setLoginSuccess] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -21,32 +20,31 @@ const Register = () => {
     if (error.length > 1 || !username || !password || !loginName || !email) {
       navigate('/register')
     } else {
-      setRegisterSuccess(true)
       setLoginSuccess(false)
       localStorage.setItem("Password", JSON.stringify(password));
       localStorage.setItem("Username", JSON.stringify(username));
       localStorage.setItem("Login", loginSuccess);
       console.log("Saved");
+      openNotificationWithIcon('success')
       e.target.reset()
     }
   }
+
+  const openNotificationWithIcon = (type) => {
+    notification[type]({
+      message: 'Register Successfully!',
+      description: 'Please go back to login page.',
+      placement: 'top'
+    });
+  };
   // console.log(registerSuccess)
 
   return (
     <div className="App">
       <header className="App-header">
         <Title level={3} style={{ marginBottom: '3vh' }}>Sign Up</Title>
-        {registerSuccess ?
-          <Alert
-            message="Successfully registered!"
-            showIcon
-            description="Go back to login page."
-            style={{ marginBottom: '3vh' }}
-            type="success" />
-          :
-          null
-        }
         <Form
+          labelAlign='left'
           onSubmitCapture={handleRegister}
           size='large'
           autoComplete="off"
@@ -109,11 +107,15 @@ const Register = () => {
               {
                 required: true,
                 message: "Please enter your Email",
+              },
+              {
+                type: "email",
+                message: "Please enter a valid email"
               }
             ]}
             hasFeedback
           >
-            <Input onChange={(e) => setEmail(e.target.value)} placeholder="Type your Email Address" />
+            <Input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Type your Email Address" />
           </Form.Item>
 
           <Form.Item
@@ -137,16 +139,22 @@ const Register = () => {
             <Input placeholder="Type your address" />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }} >
-            <Button type="primary" htmlType="submit" shape='round' style={{ marginRight: 20 }}>
-              Register
-            </Button>
-
-            <Link to='/'>
-              <Button shape='round'>
-                Login
+          <Form.Item labelCol={{ span: 10 }} wrapperCol={{ span: 20 }}>
+            <Space>
+              <Button
+                type="primary"
+                htmlType="submit"
+                shape='round'>
+                Register
               </Button>
-            </Link>
+              <Link to='/'>
+                <Button
+                  style={{ marginLeft: 10 }}
+                  shape='round'>
+                  Login
+                </Button>
+              </Link>
+            </Space>
           </Form.Item>
         </Form>
       </header>
